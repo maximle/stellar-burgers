@@ -1,0 +1,24 @@
+.link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8585ad;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  
+  border-radius: 40px;
+}
+
+.link_active {
+  color: #F2F2F3;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

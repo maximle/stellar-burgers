@@ -7,11 +7,26 @@ class NavItem extends React.Component {
     super(props);
   }
 
-
-
   render() {
     return(
-      <p>test</p>
+      <a href="#" className={`
+      ${styles.link} 
+      ${this.props.active ? styles.link_active : ''} 
+      text 
+      text_type_main-default
+      pl-5 pr-5 pt-4 pb-4
+      `}>
+        <div className={`${styles.icon} mr-2`}>
+          {this.props.icon}
+        </div>
+        <p className={`
+        ${styles.text} 
+        text 
+        text_type_main-default
+        `}>
+          {this.props.text}
+        </p>
+      </a>
     )
   }
 }
