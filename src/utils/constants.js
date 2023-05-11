@@ -1,3 +1,11 @@
-const dataUrl = 'https://norma.nomoreparties.space/api/ingredients ';
+const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
-export {dataUrl}
+
+const tabsObj = {
+  bun: 'Булки',
+  sauce: 'Соусы',
+  main: 'Начинки'
+}
+
+export { dataUrl }
+export default tabsObj
