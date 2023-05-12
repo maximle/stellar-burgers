@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { dataUrl } from '../../utils/constants';
-import BurgerIngridients from '../burger-ingridients/burger-ingridients';
+import Main from '../main/main';
 
 export default function App() {
   const [state, setState] = React.useState({
@@ -19,7 +19,8 @@ export default function App() {
         setState({...state, isLoading: true});
         const res = await fetch(dataUrl);
         const data = await res.json();
-        setState((prevState) => ({ ...prevState, data: data.data, isLoading: false }));
+        // setState((prevState) => ({ ...prevState, data: data.data, isLoading: false }));
+        setState({...state, data: data.data, isLoading: false});
       } catch(err) {
         console.log(err);
         setState({...state, hasError: true});
@@ -51,8 +52,8 @@ export default function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <p></p>
-      {state.data && <BurgerIngridients data={data} />}
+
+      {data && <Main data={data} />}
     </div>
   );
 }

@@ -7,8 +7,8 @@ export default function Card({ card, onClick }) {
     <>
       <div className={`${styles.card}`} onClick={onClick}>
         <img src={card.image} alt={card.name} className={`${styles.image} ml-4 mr-4 mb-1`} />
-        <div className={`${styles.cost} mb-1`}>
-          <span className={`${styles.priceNumber} text text_type_digits-default`}>
+        <div className={`${styles.price} mb-1`}>
+          <span className={`${styles.priceNum} text text_type_digits-default mr-2`}>
             {card.price}
           </span>
           <CurrencyIcon type="primary" />
