@@ -7,7 +7,7 @@ export default function BurgerConstructor({ ingridients }) {
   const bun = ingridients.bun;
   console.log(stuffing);
   return (
-    <section className={`${styles.section} pl-4 pt-25`}>
+    <section className={`${styles.section}  pt-25`}>
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
       <li className={`${styles['ingridients-item']}`}>
           <ConstructorElement
@@ -31,7 +31,7 @@ export default function BurgerConstructor({ ingridients }) {
             )
           })}
         </ul>
-        <li className={`${styles.ingridientsList} mr-4 pl-8`}>
+        <li className={`${styles.ingridientsList} pr-4 pl-8`}>
           <ConstructorElement
             type='bottom'
             isLocked={true}
@@ -41,6 +41,17 @@ export default function BurgerConstructor({ ingridients }) {
           />
         </li>
       </ul>
+      <div className={`${styles.price} mt-10`}>
+          <span className={`${styles.price}`}>
+            610
+            <span className={`${styles.priceIcon} ml-2`}>
+              <CurrencyIcon type='primary' />
+            </span>
+          </span>
+          <div className="mr-4 ml-10">
+            <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
+          </div>
+      </div>
     </section>
   )
 }
