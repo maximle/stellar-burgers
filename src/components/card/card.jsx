@@ -3,15 +3,16 @@ import styles from './card.module.css';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngridientDetails from '../ingridient-details/ingridient-details';
+import { ingredientPropType } from '../../utils/prop-types';
 
-
-export default function Card({ card, onClick }) {
+export default function Card({ card }) {
   const [popupOpened, setPopupOpened] = React.useState(false);
   const openPopup = () => {
     setPopupOpened(true)
   }
-  const closePopup = () => {
+  const closePopup = (e) => {
     setPopupOpened(false)
+    console.log(e.target, e.target.parentNode, e.currentTarget);
   }
   return (
     <>
@@ -36,3 +37,5 @@ export default function Card({ card, onClick }) {
     </>
   );
 }
+
+Card.propTypes = ingredientPropType;

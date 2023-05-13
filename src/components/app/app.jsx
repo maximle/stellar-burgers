@@ -4,6 +4,8 @@ import AppHeader from '../app-header/app-header';
 import { dataUrl } from '../../utils/constants';
 import Main from '../main/main';
 
+
+
 export default function App() {
   const [state, setState] = React.useState({
     data: null,
@@ -26,28 +28,12 @@ export default function App() {
         setState({...state, hasError: true});
       }
     }
-    
-    // const getData = () => {
-    //   fetch(dataUrl)
-    //   .then(res => res.json())
-    //   .then((res) => {
-    //     setState((prevState) => ({ ...prevState, data: res.data }));
-    //   })
-    //   .catch(() => {
-    //     setState((prevState) => ({ ...prevState, hasError: true }));
-    //   })
-    //   .finally(() => {
-    //     setState((prevState) => ({ ...prevState, isLoading: false }));
-    //   });
-    // }
-
-    
 
     getData();
 
     
   }, []);
-  // console.log(state);
+  
   const data = state.data;
   return (
     <div className={styles.app}>
@@ -57,5 +43,4 @@ export default function App() {
     </div>
   );
 }
-
 

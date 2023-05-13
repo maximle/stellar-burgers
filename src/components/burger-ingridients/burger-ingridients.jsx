@@ -3,6 +3,9 @@ import styles from './burger-ingridients.module.css';
 import Tabs from '../tabs/tabs'
 import IngridientsTab from '../ingridients-tab/ingridients-tab'
 import tabsObj from '../../utils/constants';
+import PropTypes from 'prop-types';
+import { ingredientPropType } from '../../utils/prop-types';
+
 
 export default function BurgerIngridients({ingridients}) {
   const [tabs, setTabs] = React.useState(tabsObj);
@@ -29,6 +32,8 @@ export default function BurgerIngridients({ingridients}) {
       </div>
       </section>
   )
-  
-
 }
+
+BurgerIngridients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType)
+};

@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ingridient-details.module.css';
+import PropTypes from 'prop-types';
+import { ingredientPropType } from '../../utils/prop-types';
 
 export default function IngridientDetails({ingridient}) {
   console.log(ingridient);
@@ -29,3 +31,5 @@ export default function IngridientDetails({ingridient}) {
     </div>
   )
 }
+
+IngridientDetails.propTypes = ingredientPropType;

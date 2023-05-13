@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './nav-item.module.css';
+import PropTypes from "prop-types";
 
 
 export default function NavItem(props) {
@@ -24,3 +25,8 @@ export default function NavItem(props) {
       </a>
     )
 }
+
+NavItem.propTypes = {
+  icon: PropTypes.element,
+  text: PropTypes.string
+};
