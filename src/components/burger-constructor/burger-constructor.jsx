@@ -41,14 +41,14 @@ export default function BurgerConstructor({ ingridients }) {
           />
         </li>
       </ul>
-      <div className={`${styles.price} mt-10`}>
+      <div className={`${styles.price} mt-10 pr-4`}>
           <span className={`${styles.price}`}>
             610
             <span className={`${styles.priceIcon} ml-2`}>
               <CurrencyIcon type='primary' />
             </span>
           </span>
-          <div className="mr-4 ml-10">
+          <div className=" ml-10">
             <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
           </div>
       </div>

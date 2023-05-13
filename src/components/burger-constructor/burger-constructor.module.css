@@ -41,7 +41,9 @@
   margin-left: auto;
 }
 
-.priceIcon {
+
+
+.priceIcon svg {
   width: 33px;
   height: 33px;
 }
