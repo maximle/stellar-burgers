@@ -21,7 +21,6 @@ export default function App() {
         setState({...state, isLoading: true});
         const res = await fetch(dataUrl);
         const data = await res.json();
-        // setState((prevState) => ({ ...prevState, data: data.data, isLoading: false }));
         setState({...state, data: data.data, isLoading: false});
       } catch(err) {
         console.log(err);
