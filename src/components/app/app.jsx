@@ -1,17 +1,45 @@
-import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import React from 'react';
+import styles from './app.module.css';
+import AppHeader from '../app-header/app-header';
+import { dataUrl } from '../../utils/constants';
+import Main from '../main/main';
 
-function App() {
+
+
+export default function App() {
+  const [state, setState] = React.useState({
+    data: null,
+    isLoading: false,
+    hasError: false
+  });
+
+  
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        setState({...state, isLoading: true});
+        const res = await fetch(dataUrl);
+        const data = await res.json();
+        setState({...state, data: data.data, isLoading: false});
+      } catch(err) {
+        console.log(err);
+        setState({...state, hasError: true});
+      }
+    }
+
+    getData();
+
+    
+  }, []);
+  
+  const data = state.data;
   return (
     <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
+      <AppHeader />
+
+      {data && <Main data={data} />}
     </div>
   );
 }
 
-export default App;
