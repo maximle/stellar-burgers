@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './card.module.css';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
+import IngridientDetails from '../ingridient-details/ingridient-details';
 
 
 export default function Card({ card, onClick }) {
@@ -28,7 +29,7 @@ export default function Card({ card, onClick }) {
       </div>
       {popupOpened && 
         <Modal closePopup={closePopup}>
-          прив
+          <IngridientDetails ingridient={card} />
         </Modal>
       }
       

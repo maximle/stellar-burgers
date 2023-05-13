@@ -1,11 +1,22 @@
 import React from 'react';
 import styles from './burger-constructor.module.css';
 import { Button, DragIcon,ConstructorElement , CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-detailts/order-details';
 
 export default function BurgerConstructor({ ingridients }) {
   const stuffing =  ingridients.main.concat(ingridients.sauce);
   const bun = ingridients.bun;
   console.log(stuffing);
+
+  const [popupOpened, setPopupOpened] = React.useState(false);
+  const openPopup = () => {
+    setPopupOpened(true)
+  }
+  const closePopup = () => {
+    setPopupOpened(false)
+  }
+
   return (
     <section className={`${styles.section}  pt-25`}>
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
@@ -48,10 +59,16 @@ export default function BurgerConstructor({ ingridients }) {
               <CurrencyIcon type='primary' />
             </span>
           </span>
-          <div className=" ml-10">
+          <div className="ml-10" onClick={openPopup}>
             <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
           </div>
+          {popupOpened && 
+            <Modal closePopup={closePopup}>
+              <OrderDetails />
+            </Modal>
+          }
       </div>
+
     </section>
   )
 }
