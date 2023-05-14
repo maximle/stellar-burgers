@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import { dataUrl } from '../../utils/constants';
 import Main from '../main/main';
+import { getIngredients } from '../../utils/burger-api';
 
 
 
@@ -16,28 +16,28 @@ export default function App() {
   
 
   React.useEffect(() => {
-    const getData = async () => {
-      try {
-        setState({...state, isLoading: true});
-        const res = await fetch(dataUrl);
-        const data = await res.json();
-        setState({...state, data: data.data, isLoading: false});
-      } catch(err) {
-        console.log(err);
-        setState({...state, hasError: true});
-      }
+    const getData = () => {
+      setState({...state, isLoading: true});
+      getIngredients()
+        .then((res) => {
+          setState((prevState) => ({ ...prevState, data: res.data }));
+        })
+        .catch((err) => {
+          console.log(err);
+          setState((prevState) => ({ ...prevState, hasError: true }));
+        })
+        .finally(() => {
+          setState((prevState) => ({ ...prevState, isLoading: false }));
+        })
     }
 
-    getData();
-
-    
+    getData();    
   }, []);
   
   const data = state.data;
   return (
     <div className={styles.app}>
       <AppHeader />
-
       {data && <Main data={data} />}
     </div>
   );

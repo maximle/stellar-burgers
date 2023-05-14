@@ -32,4 +32,4 @@ export default function IngridientDetails({ingridient}) {
   )
 }
 
-IngridientDetails.propTypes = ingredientPropType;
+IngridientDetails.propTypes = ingredientPropType.isRequired;

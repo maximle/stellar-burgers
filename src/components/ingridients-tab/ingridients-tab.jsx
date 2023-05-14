@@ -28,4 +28,4 @@ export default function IngridientsTab({tab, ingridients}) {
   )
 }
 
-IngridientsTab.propTypes = {tabObjPropType, ingredientPropType};
+IngridientsTab.propTypes = {tabObjPropType, ingredientPropType}.isRequired;

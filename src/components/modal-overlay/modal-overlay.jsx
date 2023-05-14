@@ -1,26 +1,12 @@
-import React from 'react';
 import styles from './modal-overlay.module.css';
 import PropTypes from "prop-types";
 
-export default function ModalOverlay({ closePopup, children }) {
+export default function ModalOverlay({ closePopup }) {
   return (
-    <div className={styles.overlay} >
-      {children}
-      <div className={styles['bottom-overlay']} onClick={closePopup}></div>
-    </div>
+    <div className={styles.overlay} onClick={closePopup}></div>
   )
 }
 
 ModalOverlay.propTypes = {
-  closePopup: PropTypes.func,
-  children: PropTypes.element
+  closePopup: PropTypes.func.isRequired,
 };
-
-// export default function ModalOverlay({ closePopup, children }) {
-//   return (
-//     <div className={styles.overlay} onClick={closePopup}>
-//       {children}
-//       {/* <div className={styles['bottom-overlay']} onClick={closePopup}></div> */}
-//     </div>
-//   )
-// }

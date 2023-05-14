@@ -26,7 +26,7 @@ export default function BurgerConstructor({ ingridients }) {
           <ConstructorElement
             type='top'
             isLocked={true}
-            text={bun[0].name}
+            text={`${bun[0].name} (верх)`}
             price={bun[0].price}
             thumbnail={bun[0].image}
           />
@@ -48,9 +48,9 @@ export default function BurgerConstructor({ ingridients }) {
           <ConstructorElement
             type='bottom'
             isLocked={true}
-            text={bun[1].name}
-            price={bun[1].price}
-            thumbnail={bun[1].image}
+            text={`${bun[0].name} (низ)`}
+            price={bun[0].price}
+            thumbnail={bun[0].image}
           />
         </li>
       </ul>
@@ -76,5 +76,5 @@ export default function BurgerConstructor({ ingridients }) {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType)
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
 };

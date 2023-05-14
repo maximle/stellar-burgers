@@ -38,4 +38,4 @@ export default function Card({ card }) {
   );
 }
 
-Card.propTypes = ingredientPropType;
+Card.propTypes = ingredientPropType.isRequired;

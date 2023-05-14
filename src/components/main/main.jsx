@@ -18,4 +18,4 @@ export default function Main({ data }) {
   )
 }
 
-Main.propTypes = PropTypes.arrayOf(ingredientPropType);
+Main.propTypes = PropTypes.arrayOf(ingredientPropType).isRequired;
