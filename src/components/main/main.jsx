@@ -5,6 +5,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { sortArr } from '../../utils/utils';
 import PropTypes from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
+import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 
 export default function Main({ data }) {
     console.log(data);
@@ -13,7 +14,10 @@ export default function Main({ data }) {
   return (
     <main className={styles.main}>
       <BurgerIngridients ingridients={ingridients} />
-      <BurgerConstructor ingridients={ingridients} />
+      <BurgerConstructorContext.Provider value={ingridients}>
+        <BurgerConstructor />
+      </BurgerConstructorContext.Provider>
+      
     </main>
   )
 }

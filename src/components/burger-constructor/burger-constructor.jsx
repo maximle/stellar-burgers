@@ -5,8 +5,11 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-detailts/order-details';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types'
+import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 
-export default function BurgerConstructor({ ingridients }) {
+
+export default function BurgerConstructor() {
+  const ingridients = React.useContext(BurgerConstructorContext);
   const stuffing =  ingridients.main.concat(ingridients.sauce);
   const bun = ingridients.bun;
   console.log(ingridients);
