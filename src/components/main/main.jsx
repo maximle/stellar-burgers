@@ -10,11 +10,13 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 export default function Main({ data }) {
     console.log(data);
     const ingridients = sortArr(data);
-
+  console.log(ingridients);
+  const constructorIngridients = React.useState([]);
   return (
     <main className={styles.main}>
-      <BurgerIngridients ingridients={ingridients} />
-      <BurgerConstructorContext.Provider value={ingridients}>
+      <BurgerConstructorContext.Provider value={constructorIngridients}>
+        <BurgerIngridients ingridients={ingridients} />
+      
         <BurgerConstructor />
       </BurgerConstructorContext.Provider>
       

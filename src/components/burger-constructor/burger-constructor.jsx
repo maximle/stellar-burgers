@@ -10,8 +10,8 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 
 export default function BurgerConstructor() {
   const ingridients = React.useContext(BurgerConstructorContext);
-  const stuffing =  ingridients.main.concat(ingridients.sauce);
-  const bun = ingridients.bun;
+  // const stuffing =  ingridients.main.concat(ingridients.sauce);
+  // const bun = ingridients.bun;
   console.log(ingridients);
 
   const [popupOpened, setPopupOpened] = React.useState(false);
@@ -22,10 +22,27 @@ export default function BurgerConstructor() {
     setPopupOpened(false)
   }
 
+  // useEffect(() => {
+  //   const ingridientsList = document.querySelector('.ingridients-list');
+  // }, []);
+
   return (
     <section className={`${styles.section}  pt-25`}>
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
-      <li className={`${styles['ingridients-item']}`}>
+        {
+          ingridients[0].map(item => {
+            return (
+              <li key={item['_id']} className={`${styles['ingridients-item']}`}>
+                  <span className={`${styles['drag-icon']}`}>
+                    <DragIcon type="primary" />
+                  </span>
+                  
+                  <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
+              </li>
+            )
+          }
+        )}
+      {/* <li className={`${styles['ingridients-item']}`}>
           <ConstructorElement
             type='top'
             isLocked={true}
@@ -55,7 +72,7 @@ export default function BurgerConstructor() {
             price={bun[0].price}
             thumbnail={bun[0].image}
           />
-        </li>
+        </li> */}
       </ul>
       <div className={`${styles.price} mt-10 pr-4`}>
           <span className={`${styles.price}`}>
@@ -77,6 +94,7 @@ export default function BurgerConstructor() {
     </section>
   )
 }
+
 
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
