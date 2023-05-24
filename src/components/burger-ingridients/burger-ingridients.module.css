@@ -1,0 +1,12 @@
+.section {
+  width: 600px;
+  height: 912px;
+  box-sizing: border-box;
+}
+
+.ingredients {
+  max-height: 716px;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  scrollbar-color: #8585ad #2f2f37;
+}

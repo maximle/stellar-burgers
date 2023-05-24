@@ -1,0 +1,36 @@
+.header {
+  width: 100%;
+  height: 88px;
+  background: #1C1C21;
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  box-sizing: border-box;
+  /* margin-left: 40px;
+  margin-right: 40px; */
+  align-items: center;
+  padding-left: 320px;
+  padding-right: 320px;
+}
+
+.logo {
+  margin-left: 132px;
+  margin-right: 289px;
+  box-sizing: border-box;
+}
+
+.nav {
+
+}
+
+.navItems {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  display: flex;
+  box-sizing: border-box;
+  border-radius: 40px;
+}

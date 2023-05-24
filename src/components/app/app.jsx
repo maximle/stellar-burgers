@@ -1,17 +1,45 @@
-import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import React from 'react';
+import styles from './app.module.css';
+import AppHeader from '../app-header/app-header';
+import Main from '../main/main';
+import { getIngredients } from '../../utils/burger-api';
 
-function App() {
+
+
+export default function App() {
+  const [state, setState] = React.useState({
+    data: null,
+    isLoading: false,
+    hasError: false
+  });
+
+  
+
+  React.useEffect(() => {
+    const getData = () => {
+      setState({...state, isLoading: true});
+      getIngredients()
+        .then((res) => {
+          setState((prevState) => ({ ...prevState, data: res.data }));
+        })
+        .catch((err) => {
+          console.log(err);
+          setState((prevState) => ({ ...prevState, hasError: true }));
+        })
+        .finally(() => {
+          setState((prevState) => ({ ...prevState, isLoading: false }));
+        })
+    }
+
+    getData();    
+  }, []);
+  
+  const data = state.data;
   return (
     <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
+      <AppHeader />
+      {data && <Main data={data} />}
     </div>
   );
 }
 
-export default App;
