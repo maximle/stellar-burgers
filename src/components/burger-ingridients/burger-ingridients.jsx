@@ -14,9 +14,9 @@ export default function BurgerIngridients({ingridients}) {
     Object.keys(tabsObj)[0]
   );
   
-  const [constructorIngridients, setConstructorIngridients] = React.useContext(BurgerConstructorContext);
+  // const [constructorIngridients, setConstructorIngridients] = React.useContext(BurgerConstructorContext);
 
-  console.log(ingridients, constructorIngridients);
+  // console.log(ingridients, constructorIngridients);
   
   return (
     <section className={`${styles.section} pt-10`}>

@@ -10,12 +10,13 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 
 export default function BurgerConstructor() {
   console.log(BurgerConstructorContext);
-  const ingridients = React.useContext(BurgerConstructorContext)[0].ingridients;
+  const ingridients = React.useContext(BurgerConstructorContext).constructorIngridients.ingridients;
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
   // const bun = ingridients.bun;
   console.log(ingridients);
-  const totalPrice = React.useContext(BurgerConstructorContext)[0].total;
+  const totalPrice = React.useContext(BurgerConstructorContext).constructorIngridients.total;
   const [popupOpened, setPopupOpened] = React.useState(false);
+  // const [totalPrice, totalPriceDispatcher] = React.useReducer(totalPriceReducer, 0);
   const openPopup = () => {
     setPopupOpened(true)
   }
@@ -62,7 +63,6 @@ export default function BurgerConstructor() {
                     
                     <ConstructorElement text={ingridients.buns[0].name} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={ingridients.buns[0].type}/>
                   </li>
-                  
               )
           }
         
