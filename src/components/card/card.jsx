@@ -1,6 +1,4 @@
 import React from 'react';
-// import { useContext } from 'react';
-
 import styles from './card.module.css';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
@@ -24,7 +22,47 @@ export default function Card({ card }) {
   const addToContructor = () => {
     console.log(card);
     console.log(constructorIngridients);
-    setConstructorIngridients([...constructorIngridients, card]);
+    let constructorIngridientsClone = {...constructorIngridients};
+    let cardClone = {...card};
+    let newIngridients = constructorIngridientsClone.ingridients;
+      if (card.type === 'bun') {
+        if (constructorIngridientsClone.ingridients.buns.length === 0) {
+          console.log('===========', constructorIngridientsClone.ingridients);
+          cardClone.name += ' (низ)';
+          cardClone.type = 'bottom';
+          console.log(card);
+        } else if (constructorIngridientsClone.ingridients.buns.length === 1) {
+          cardClone.name += ' (верх)';
+          cardClone.type = 'top';
+        } else {
+          return
+        }
+        
+        newIngridients.buns.push(cardClone);
+        console.log('===========', newIngridients);
+        
+        } else {
+        newIngridients.stuffings.push(cardClone);
+      }
+    
+      constructorIngridientsClone = {
+        ...constructorIngridientsClone,
+        ingridients: newIngridients,
+        total: constructorIngridientsClone.total + cardClone.price
+      }
+    
+    // constructorIngridientsClone = {
+    //   ...constructorIngridientsClone,
+    //   ingridients: [...constructorIngridientsClone.ingridients, card],
+    //   total: constructorIngridientsClone.total + card.price
+    // }
+    console.log(constructorIngridientsClone);
+    // setConstructorIngridients({
+    //   ...constructorIngridients,
+    //   ingridients: [...constructorIngridients.ingridients, card],
+    //   total: constructorIngridients.total + card.price
+    // });
+    setConstructorIngridients(constructorIngridientsClone);
   }
 
   return (

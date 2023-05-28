@@ -11,7 +11,10 @@ export default function Main({ data }) {
     console.log(data);
     const ingridients = sortArr(data);
   console.log(ingridients);
-  const constructorIngridients = React.useState([]);
+  const constructorIngridients = React.useState({
+    ingridients: {buns: [], stuffings: []},
+    total: 0
+  });
   return (
     <main className={styles.main}>
       <BurgerConstructorContext.Provider value={constructorIngridients}>

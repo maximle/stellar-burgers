@@ -9,11 +9,12 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 
 
 export default function BurgerConstructor() {
-  const ingridients = React.useContext(BurgerConstructorContext);
+  console.log(BurgerConstructorContext);
+  const ingridients = React.useContext(BurgerConstructorContext)[0].ingridients;
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
   // const bun = ingridients.bun;
   console.log(ingridients);
-
+  const totalPrice = React.useContext(BurgerConstructorContext)[0].total;
   const [popupOpened, setPopupOpened] = React.useState(false);
   const openPopup = () => {
     setPopupOpened(true)
@@ -29,54 +30,46 @@ export default function BurgerConstructor() {
   return (
     <section className={`${styles.section}  pt-25`}>
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
-        {
-          ingridients[0].map(item => {
-            return (
-              <li key={item['_id']} className={`${styles['ingridients-item']}`}>
-                  <span className={`${styles['drag-icon']}`}>
-                    <DragIcon type="primary" />
-                  </span>
+            {ingridients.buns.length === 2 && (   
+                  <li key={ingridients.buns[1]['_id']} className={`${styles['ingridients-item']}`}>
+                    <span className={`${styles['drag-icon']}`}>
+                      <DragIcon type="primary" />
+                    </span>
+                    
+                    <ConstructorElement text={ingridients.buns[1].name} price={ingridients.buns[1].price} thumbnail={ingridients.buns[1].image} isLocked={true} type={ingridients.buns[1].type}/>
+                  </li>
                   
-                  <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-              </li>
-            )
+              )
+            }
+            <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`}>
+            {ingridients.stuffings.map((item) => {
+              return (   
+                  <li key={item['_id']} className={`${styles['ingridients-item']}`}>
+                    <span className={`${styles['drag-icon']}`}>
+                      <DragIcon type="primary" />
+                    </span>
+                    
+                    <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
+                  </li>
+              )
+            })}
+          </ul>
+          {ingridients.buns.length >= 1 && (   
+                  <li key={ingridients.buns[0]['_id']} className={`${styles['ingridients-item']}`}>
+                    <span className={`${styles['drag-icon']}`}>
+                      <DragIcon type="primary" />
+                    </span>
+                    
+                    <ConstructorElement text={ingridients.buns[0].name} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={ingridients.buns[0].type}/>
+                  </li>
+                  
+              )
           }
-        )}
-      {/* <li className={`${styles['ingridients-item']}`}>
-          <ConstructorElement
-            type='top'
-            isLocked={true}
-            text={`${bun[0].name} (верх)`}
-            price={bun[0].price}
-            thumbnail={bun[0].image}
-          />
-        </li>
-        <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`}>
-          {stuffing.map((item) => {
-            return (   
-                <li key={item['_id']} className={`${styles['ingridients-item']}`}>
-                  <span className={`${styles['drag-icon']}`}>
-                    <DragIcon type="primary" />
-                  </span>
-                  
-                  <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-                </li>
-            )
-          })}
-        </ul>
-        <li className={`${styles.ingridientsList} pr-4 pl-8`}>
-          <ConstructorElement
-            type='bottom'
-            isLocked={true}
-            text={`${bun[0].name} (низ)`}
-            price={bun[0].price}
-            thumbnail={bun[0].image}
-          />
-        </li> */}
+        
       </ul>
       <div className={`${styles.price} mt-10 pr-4`}>
           <span className={`${styles.price}`}>
-            610
+            {totalPrice}
             <span className={`${styles.priceIcon} ml-2`}>
               <CurrencyIcon type='primary' />
             </span>
