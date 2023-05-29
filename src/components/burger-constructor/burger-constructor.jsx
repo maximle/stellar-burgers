@@ -12,11 +12,10 @@ export default function BurgerConstructor() {
   console.log(BurgerConstructorContext);
   const ingridients = React.useContext(BurgerConstructorContext).constructorIngridients.ingridients;
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
-  // const bun = ingridients.bun;
   console.log(ingridients);
   const totalPrice = React.useContext(BurgerConstructorContext).constructorIngridients.total;
   const [popupOpened, setPopupOpened] = React.useState(false);
-  // const [totalPrice, totalPriceDispatcher] = React.useReducer(totalPriceReducer, 0);
+
   const openPopup = () => {
     setPopupOpened(true)
   }
@@ -24,9 +23,6 @@ export default function BurgerConstructor() {
     setPopupOpened(false)
   }
 
-  // useEffect(() => {
-  //   const ingridientsList = document.querySelector('.ingridients-list');
-  // }, []);
 
   return (
     <section className={`${styles.section}  pt-25`}>
@@ -37,7 +33,7 @@ export default function BurgerConstructor() {
                       <DragIcon type="primary" />
                     </span>
                     
-                    <ConstructorElement text={ingridients.buns[1].name} price={ingridients.buns[1].price} thumbnail={ingridients.buns[1].image} isLocked={true} type={ingridients.buns[1].type}/>
+                    <ConstructorElement text={`${ingridients.buns[0].name} (верх)`} price={ingridients.buns[1].price} thumbnail={ingridients.buns[1].image} isLocked={true} type={'top'}/>
                   </li>
                   
               )
@@ -61,7 +57,7 @@ export default function BurgerConstructor() {
                       <DragIcon type="primary" />
                     </span>
                     
-                    <ConstructorElement text={ingridients.buns[0].name} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={ingridients.buns[0].type}/>
+                    <ConstructorElement text={`${ingridients.buns[0].name} (низ)`} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={'bottom'}/>
                   </li>
               )
           }

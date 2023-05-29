@@ -9,36 +9,27 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 
 const addToConstructor = (constructorIngridients, action) => {
   if (action.type === 'set') {
-    // console.log(action.payload);
-    // console.log(constructorIngridients);
     let constructorIngridientsClone = {...constructorIngridients};
     let cardClone = {...action.payload};
     let newIngridients = {...constructorIngridientsClone.ingridients};
-      if (cardClone.type === 'bun') {
-        console.log('+++++', constructorIngridientsClone.ingridients.buns.length);
-        if (constructorIngridientsClone.ingridients.buns.length === 0) {
-          console.log('===========', constructorIngridientsClone.ingridients);
-          cardClone.name += ' (низ)';
-          cardClone.type = 'bottom';
-          console.log(action.payload);
-        } else if (constructorIngridientsClone.ingridients.buns.length === 1) {
-          cardClone.name += ' (верх)';
-          cardClone.type = 'top';
-        } else if (constructorIngridientsClone.ingridients.buns.length >= 2) {
+    let newOrderList = [...constructorIngridientsClone.orderList];
+    let price = cardClone.price;
+      if (cardClone.type === 'bun') {       
+        if (constructorIngridientsClone.ingridients.buns.length >= 2) {
           return (constructorIngridientsClone);
         }
-        
         newIngridients.buns.push(cardClone);
-        console.log('===========', newIngridients);
-        
+        newIngridients.buns.push(cardClone);
+        price *= 2;
         } else {
         newIngridients.stuffings.push(cardClone);
       }
-    
+      newOrderList.push(cardClone['_id']);
       constructorIngridientsClone = {
         ...constructorIngridientsClone,
         ingridients: newIngridients,
-        total: constructorIngridientsClone.total + cardClone.price
+        total: constructorIngridientsClone.total + price,
+        orderList: newOrderList
       }
     
     console.log(constructorIngridientsClone);
@@ -51,14 +42,10 @@ export default function Main({ data }) {
     console.log(data);
     const ingridients = sortArr(data);
   console.log(ingridients);
-  // const constructorIngridients = React.useState({
-  //   ingridients: {buns: [], stuffings: []},
-  //   total: 0
-  // });
-
   const [constructorIngridients, constructorIngridientsDispatcher] = React.useReducer(addToConstructor, {
     ingridients: {buns: [], stuffings: []},
-    total: 0
+    total: 0,
+    orderList: []
   });
   console.log(constructorIngridients);
   return (
