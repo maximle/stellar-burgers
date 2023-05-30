@@ -1,12 +1,12 @@
 import { dataUrl } from "./constants";
-import { checkReponse } from "./utils";
+import { request } from "./utils";
 
 export function getIngredients() {
-  return fetch(`${dataUrl}/ingredients`).then(checkReponse)
+  return request(`${dataUrl}/ingredients`)
 }
 
 export function order(orderList) {
-  return fetch(`${dataUrl}/orders`, {
+  return request(`${dataUrl}/orders`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -14,5 +14,5 @@ export function order(orderList) {
     body: JSON.stringify({
       ingredients: orderList
     })
-  }).then(checkReponse);
+  });
 } 

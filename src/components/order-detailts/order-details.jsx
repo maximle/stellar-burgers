@@ -5,7 +5,7 @@ import { BurgerConstructorContext } from '../../services/burgerConstructorContex
 
 export default function OrderDetails({}) {
   const { constructorIngridients } = React.useContext(BurgerConstructorContext);
-  
+  const { constructorIngridientsDispatcher } = React.useContext(BurgerConstructorContext);
   const [state, setState] = React.useState({
     data: null,
     isLoading: false,
@@ -19,7 +19,10 @@ export default function OrderDetails({}) {
       setState({...state, isLoading: true});
       order(constructorIngridients.orderList)
         .then((res) => {
-          setState((prevState) => ({ ...prevState, data: res }));
+          setTimeout(() => {
+            setState((prevState) => ({ ...prevState, data: res }));
+            constructorIngridientsDispatcher({type: 'reset'});
+          }, "500");
         })
         .catch((err) => {
           console.log(err);
@@ -27,6 +30,7 @@ export default function OrderDetails({}) {
         })
         .finally(() => {
           setState((prevState) => ({ ...prevState, isLoading: false }));
+          
         })
     }
 
@@ -34,14 +38,32 @@ export default function OrderDetails({}) {
   }, []);
 
   return (
-    <div className={`${styles['order-details']} mt-30 mr-25 mb-30 ml-25`}>
-      <h3 className={`${styles.title} text text_type_digits-large mb-8`}>
-        {state.data && state.data.order.number}
-      </h3>
-      <p className="text text_type_main-medium mb-15">Идентификатор заказа</p>
-      <div className={`${styles.img} mb-15`}></div>
-      <p className="text text_type_main-default mb-2">Ваш заказ начали готовить</p>
-      <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
-    </div>
+    // <div className={`${styles.container}`}>
+      
+      
+        
+            <div className={`${styles['order-details']} mt-30 mr-25 mb-30 ml-25`}>
+              
+              
+              
+              <h3 className={`${styles.title} text text_type_digits-large mb-8`}>
+                {!state.data && <p className="text text_type_main-large mb-2">загрузка...</p>}
+                {state.data && state.data.order.number}
+              </h3>
+              <p className="text text_type_main-medium mb-15">Идентификатор заказа</p>
+              <div className={`${styles.img} mb-15`}></div>
+              <p className="text text_type_main-default mb-2">Ваш заказ начали готовить</p>
+              <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
+              
+              
+              
+            </div>
+          
+        
+        
+      
+      
+    // </div>
+    
   )
 }

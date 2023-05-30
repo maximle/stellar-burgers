@@ -35,12 +35,19 @@ const addToConstructor = (constructorIngridients, action) => {
     console.log(constructorIngridientsClone);
     
     return (constructorIngridientsClone);
+    } else if (action.type === 'reset') {
+      let constructorIngridientsClone = {...constructorIngridients};
+      return (constructorIngridientsClone = {
+        ingridients: {buns: [], stuffings: []},
+        total: 0,
+        orderList: []
+      });
     }
 }
 
 export default function Main({ data }) {
-    console.log(data);
-    const ingridients = sortArr(data);
+  console.log(data);
+  const ingridients = sortArr(data);
   console.log(ingridients);
   const [constructorIngridients, constructorIngridientsDispatcher] = React.useReducer(addToConstructor, {
     ingridients: {buns: [], stuffings: []},
@@ -52,12 +59,13 @@ export default function Main({ data }) {
     <main className={styles.main}>
       <BurgerConstructorContext.Provider value={{constructorIngridients, constructorIngridientsDispatcher}}>
         <BurgerIngridients ingridients={ingridients} />
-      
         <BurgerConstructor />
       </BurgerConstructorContext.Provider>
-      
     </main>
   )
 }
 
-Main.propTypes = PropTypes.arrayOf(ingredientPropType).isRequired;
+Main.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType).isRequired
+}
+//PropTypes.arrayOf(ingredientPropType).isRequired;

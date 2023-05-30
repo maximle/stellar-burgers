@@ -16,7 +16,7 @@ export default function BurgerIngridients({ingridients}) {
   
   // const [constructorIngridients, setConstructorIngridients] = React.useContext(BurgerConstructorContext);
 
-  // console.log(ingridients, constructorIngridients);
+  console.log(ingridients);
   
   return (
     <section className={`${styles.section} pt-10`}>
@@ -38,5 +38,5 @@ export default function BurgerIngridients({ingridients}) {
 }
 
 BurgerIngridients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
+  ingridients: PropTypes.object.isRequired
 };

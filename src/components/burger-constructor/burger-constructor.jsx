@@ -17,7 +17,9 @@ export default function BurgerConstructor() {
   const [popupOpened, setPopupOpened] = React.useState(false);
 
   const openPopup = () => {
-    setPopupOpened(true)
+    if (ingridients.buns.length > 0 || ingridients.stuffings.length) {
+      setPopupOpened(true)
+    }
   }
   const closePopup = () => {
     setPopupOpened(false)
@@ -29,10 +31,6 @@ export default function BurgerConstructor() {
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
             {ingridients.buns.length === 2 && (   
                   <li key={ingridients.buns[1]['_id']} className={`${styles['ingridients-item']}`}>
-                    <span className={`${styles['drag-icon']}`}>
-                      <DragIcon type="primary" />
-                    </span>
-                    
                     <ConstructorElement text={`${ingridients.buns[0].name} (верх)`} price={ingridients.buns[1].price} thumbnail={ingridients.buns[1].image} isLocked={true} type={'top'}/>
                   </li>
                   
@@ -52,16 +50,11 @@ export default function BurgerConstructor() {
             })}
           </ul>
           {ingridients.buns.length >= 1 && (   
-                  <li key={ingridients.buns[0]['_id']} className={`${styles['ingridients-item']}`}>
-                    <span className={`${styles['drag-icon']}`}>
-                      <DragIcon type="primary" />
-                    </span>
-                    
+                  <li key={ `${ingridients.buns[0]['_id']}_2`} className={`${styles['ingridients-item']}`}>
                     <ConstructorElement text={`${ingridients.buns[0].name} (низ)`} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={'bottom'}/>
                   </li>
               )
           }
-        
       </ul>
       <div className={`${styles.price} mt-10 pr-4`}>
           <span className={`${styles.price}`}>
@@ -85,6 +78,6 @@ export default function BurgerConstructor() {
 }
 
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
-};
+// BurgerConstructor.propTypes = {
+//   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
+// };
