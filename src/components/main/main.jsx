@@ -45,27 +45,21 @@ const addToConstructor = (constructorIngridients, action) => {
     }
 }
 
-export default function Main({ data }) {
-  console.log(data);
-  const ingridients = sortArr(data);
-  console.log(ingridients);
-  const [constructorIngridients, constructorIngridientsDispatcher] = React.useReducer(addToConstructor, {
-    ingridients: {buns: [], stuffings: []},
-    total: 0,
-    orderList: []
-  });
-  console.log(constructorIngridients);
+export default function Main() {
+  // console.log(data);
+  // const ingridients = sortArr(data);
+  // console.log(ingridients);
+  // const [constructorIngridients, constructorIngridientsDispatcher] = React.useReducer(addToConstructor, {
+  //   ingridients: {buns: [], stuffings: []},
+  //   total: 0,
+  //   orderList: []
+  // });
+  // console.log(constructorIngridients);
   return (
     <main className={styles.main}>
-      <BurgerConstructorContext.Provider value={{constructorIngridients, constructorIngridientsDispatcher}}>
-        <BurgerIngridients ingridients={ingridients} />
+        <BurgerIngridients />
         <BurgerConstructor />
-      </BurgerConstructorContext.Provider>
     </main>
   )
 }
 
-Main.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType).isRequired
-}
-//PropTypes.arrayOf(ingredientPropType).isRequired;

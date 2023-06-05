@@ -3,20 +3,24 @@ import styles from './burger-ingridients.module.css';
 import Tabs from '../tabs/tabs'
 import IngridientsTab from '../ingridients-tab/ingridients-tab'
 import tabsObj from '../../utils/constants';
-import PropTypes from 'prop-types';
-import { ingredientPropType } from '../../utils/prop-types';
+import { sortArr } from '../../utils/utils';
 import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from '../../services/actions/burgerIngredients';
 
-
-export default function BurgerIngridients({ingridients}) {
+export default function BurgerIngridients() {
   const [tabs, setTabs] = React.useState(tabsObj);
   const [currentTab, setCurrentTab] = React.useState(
     Object.keys(tabsObj)[0]
   );
-  
-  // const [constructorIngridients, setConstructorIngridients] = React.useContext(BurgerConstructorContext);
-
-  console.log(ingridients);
+  const rawIngredients = useSelector(state => state.burgerIngredients);
+  const ingredients = sortArr(rawIngredients.ingredients);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
+  console.log(rawIngredients);
+  console.log(ingredients);
   
   return (
     <section className={`${styles.section} pt-10`}>
@@ -28,7 +32,7 @@ export default function BurgerIngridients({ingridients}) {
               <IngridientsTab
                 key={i}
                 tab={tabsObj[key]}
-                ingridients={ingridients[key]}
+                ingridients={ingredients[key]}
               />
             );
         })}
@@ -37,6 +41,3 @@ export default function BurgerIngridients({ingridients}) {
   )
 }
 
-BurgerIngridients.propTypes = {
-  ingridients: PropTypes.object.isRequired
-};

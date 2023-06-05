@@ -4,20 +4,16 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngridientDetails from '../ingridient-details/ingridient-details';
 import { ingredientPropType } from '../../utils/prop-types';
-import { ingridientsList } from '../burger-constructor/burger-constructor'
-import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 
 export default function Card({ card }) {
   const [popupOpened, setPopupOpened] = React.useState(false);
-  const { constructorIngridients } = React.useContext(BurgerConstructorContext);
-  const { constructorIngridientsDispatcher } = React.useContext(BurgerConstructorContext);
   const openPopup = () => {
     setPopupOpened(true)
   }
   const closePopup = (e) => {
     setPopupOpened(false)
-    console.log(e.target, e.target.parentNode, e.currentTarget);
   }
 
   // const addToConstructor = () => {
@@ -65,10 +61,19 @@ export default function Card({ card }) {
   //   // });
   //   setConstructorIngridients(constructorIngridientsClone);
   // }
+  const dispatch = useDispatch();
+  const constructorIngredients = useSelector(state => state.burgerConstructor);
+
+  const addToConstructor = () => {
+    dispatch({
+      type: ADD_INGREDIENT,
+      payload: card
+    })
+  }
 
   return (
     <>
-      <div className={`${styles.card}`} onClick={() => {constructorIngridientsDispatcher({type: 'set', payload: card})}}>
+      <div className={`${styles.card}`} onClick={addToConstructor}>
         <img src={card.image} alt={card.name} className={`${styles.image} ml-4 mr-4 mb-1`} />
         <div className={`${styles.price} mb-1`}>
           <span className={`${styles.priceNum} text text_type_digits-default mr-2`}>

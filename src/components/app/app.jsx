@@ -7,38 +7,38 @@ import { getIngredients } from '../../utils/burger-api';
 
 
 export default function App() {
-  const [state, setState] = React.useState({
-    data: null,
-    isLoading: false,
-    hasError: false
-  });
+  // const [state, setState] = React.useState({
+  //   data: null,
+  //   isLoading: false,
+  //   hasError: false
+  // });
 
   
 
-  React.useEffect(() => {
-    const getData = () => {
-      setState({...state, isLoading: true});
-      getIngredients()
-        .then((res) => {
-          setState((prevState) => ({ ...prevState, data: res.data }));
-        })
-        .catch((err) => {
-          console.log(err);
-          setState((prevState) => ({ ...prevState, hasError: true }));
-        })
-        .finally(() => {
-          setState((prevState) => ({ ...prevState, isLoading: false }));
-        })
-    }
+  // React.useEffect(() => {
+  //   const getData = () => {
+  //     setState({...state, isLoading: true});
+  //     getIngredients()
+  //       .then((res) => {
+  //         setState((prevState) => ({ ...prevState, data: res.data }));
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         setState((prevState) => ({ ...prevState, hasError: true }));
+  //       })
+  //       .finally(() => {
+  //         setState((prevState) => ({ ...prevState, isLoading: false }));
+  //       })
+  //   }
 
-    getData();    
-  }, []);
+  //   getData();    
+  // }, []);
   
-  const data = state.data;
+  // const data = state.data;
   return (
     <div className={styles.app}>
       <AppHeader />
-      {data && <Main data={data} />}
+      <Main />
     </div>
   );
 }

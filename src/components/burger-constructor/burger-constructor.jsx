@@ -6,14 +6,14 @@ import OrderDetails from '../order-detailts/order-details';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types'
 import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
-
+import { useSelector } from 'react-redux';
 
 export default function BurgerConstructor() {
-  console.log(BurgerConstructorContext);
-  const ingridients = React.useContext(BurgerConstructorContext).constructorIngridients.ingridients;
+  
+  const ingridients = useSelector(state => state.burgerConstructor.ingredients);
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
   console.log(ingridients);
-  const totalPrice = React.useContext(BurgerConstructorContext).constructorIngridients.total;
+  const totalPrice = useSelector(state => state.burgerConstructor.totalPrice);
   const [popupOpened, setPopupOpened] = React.useState(false);
 
   const openPopup = () => {
