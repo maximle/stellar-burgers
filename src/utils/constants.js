@@ -1,4 +1,4 @@
-const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+const dataUrl = 'https://norma.nomoreparties.space/api';
 const modalRoot = document.getElementById("react-modals");
 
 
@@ -11,5 +11,5 @@ const tabsObj = {
 
 
 
-export { dataUrl, modalRoot }
-export default tabsObj
+export { dataUrl, modalRoot };
+export default tabsObj;

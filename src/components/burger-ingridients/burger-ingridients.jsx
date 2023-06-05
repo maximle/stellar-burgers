@@ -5,6 +5,7 @@ import IngridientsTab from '../ingridients-tab/ingridients-tab'
 import tabsObj from '../../utils/constants';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types';
+import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 
 
 export default function BurgerIngridients({ingridients}) {
@@ -13,6 +14,8 @@ export default function BurgerIngridients({ingridients}) {
     Object.keys(tabsObj)[0]
   );
   
+  // const [constructorIngridients, setConstructorIngridients] = React.useContext(BurgerConstructorContext);
+
   console.log(ingridients);
   
   return (
@@ -35,5 +38,5 @@ export default function BurgerIngridients({ingridients}) {
 }
 
 BurgerIngridients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
+  ingridients: PropTypes.object.isRequired
 };

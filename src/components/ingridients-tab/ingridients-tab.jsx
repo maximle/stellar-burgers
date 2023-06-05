@@ -8,7 +8,7 @@ import { ingredientPropType, tabObjPropType } from '../../utils/prop-types';
 export default function IngridientsTab({tab, ingridients}) {
   
   
-  console.log(ingridients);
+  
   return (
     <>
       <h2 className={`${styles.subtitle} text text_type_main-medium`}>{tab}</h2>

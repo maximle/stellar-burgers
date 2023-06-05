@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 export default function Tabs({current, setCurrentTab}) {
   return (
-    <div className='mb-10' style={{ display: 'flex' }}>
+    <div className={`${styles.container} mb-10`}>
       <Tab value="bun" active={current === 'bun'} onClick={setCurrentTab}>
         Булки
       </Tab>
