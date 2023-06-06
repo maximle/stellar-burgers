@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT } from '../actions/burgerConstructor';
+import { ADD_INGREDIENT, SORT_INGREDIENT, DELETE_INGREDIENT } from '../actions/burgerConstructor';
 
 
 const burgerConstructorInitialState = {
@@ -11,12 +11,19 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.payload.type === 'bun') {
-        return {
-          ...state,
-          ingredients: {
-            ...state.ingredients,
-            buns: [...state.ingredients.buns, action.payload]
+        if (state.ingredients.buns.length < 2) {
+          return {
+            ...state,
+            ingredients: {
+              ...state.ingredients,
+              buns: [...state.ingredients.buns, action.payload, action.payload]
+            },
+            totalPrice: (state.totalPrice + action.payload.price * 2),
+            orderList: [...state.orderList, action.payload._id, action.payload._id]
           }
+        } else {
+          alert('Булки уже добавлены');
+          return state;
         }
       } else {
         return {
@@ -24,8 +31,24 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
           ingredients: {
             ...state.ingredients,
             stuffings: [...state.ingredients.stuffings, action.payload]
-          }
+          },
+          totalPrice: (state.totalPrice + action.payload.price),
+          orderList: [...state.orderList, action.payload._id]
+        
         }
+      }
+    }
+    case DELETE_INGREDIENT: {
+      let newStuffings = state.ingredients.stuffings;
+      console.log(action.index);
+      newStuffings.splice(action.index, 1);
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          stuffings: newStuffings
+        },
+        totalPrice: (state.totalPrice - action.payload.price)
       }
     }
     default: {

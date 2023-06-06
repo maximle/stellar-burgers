@@ -6,10 +6,12 @@ import OrderDetails from '../order-detailts/order-details';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types'
 import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { DELETE_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
+import { useDrop } from 'react-dnd';
 
 export default function BurgerConstructor() {
-  
+  const dispatch = useDispatch();
   const ingridients = useSelector(state => state.burgerConstructor.ingredients);
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
   console.log(ingridients);
@@ -25,7 +27,28 @@ export default function BurgerConstructor() {
     setPopupOpened(false)
   }
 
+  const handleDeleteButton = (item, index) => {
+    dispatch({
+      type: DELETE_INGREDIENT,
+      index: index,
+      payload: item
+    });
+  }
 
+  const [{ isHover }, dropRef] = useDrop({
+    accept: 'ingredient',
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(card) {
+      console.log(card);
+      dispatch({
+        type: ADD_INGREDIENT,
+        payload: card
+      });
+    },
+  });
+  const border = isHover ? '1px solid lightgreen' : '1px solid transparent';
   return (
     <section className={`${styles.section}  pt-25`}>
       <ul className={`pl-8 ${styles['ingridients-list']} `}>
@@ -36,22 +59,32 @@ export default function BurgerConstructor() {
                   
               )
             }
-            <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`}>
-            {ingridients.stuffings.map((item) => {
+            <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`} ref={dropRef} style={{border}}>
+            {ingridients.stuffings.map((item, i) => {
               return (   
                   <li key={item['_id']} className={`${styles['ingridients-item']}`}>
                     <span className={`${styles['drag-icon']}`}>
                       <DragIcon type="primary" />
                     </span>
                     
-                    <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
+                    <ConstructorElement 
+                    text={item.name} 
+                    price={item.price} 
+                    thumbnail={item.image}
+                    handleClose={() => handleDeleteButton(item, i)}
+                    />
                   </li>
               )
             })}
           </ul>
           {ingridients.buns.length >= 1 && (   
                   <li key={ `${ingridients.buns[0]['_id']}_2`} className={`${styles['ingridients-item']}`}>
-                    <ConstructorElement text={`${ingridients.buns[0].name} (низ)`} price={ingridients.buns[0].price} thumbnail={ingridients.buns[0].image} isLocked={true} type={'bottom'}/>
+                    <ConstructorElement 
+                    text={`${ingridients.buns[0].name} (низ)`} 
+                    price={ingridients.buns[0].price} 
+                    thumbnail={ingridients.buns[0].image} 
+                    isLocked={true} type={'bottom'}
+                    />
                   </li>
               )
           }

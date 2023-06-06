@@ -6,6 +6,7 @@ import IngridientDetails from '../ingridient-details/ingridient-details';
 import { ingredientPropType } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
+import { useDrag } from 'react-dnd';
 
 export default function Card({ card }) {
   const [popupOpened, setPopupOpened] = React.useState(false);
@@ -71,9 +72,14 @@ export default function Card({ card }) {
     })
   }
 
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: card
+  });
+
   return (
     <>
-      <div className={`${styles.card}`} onClick={addToConstructor}>
+      <div className={`${styles.card}`} onClick={addToConstructor} ref={dragRef} >
         <img src={card.image} alt={card.name} className={`${styles.image} ml-4 mr-4 mb-1`} />
         <div className={`${styles.price} mb-1`}>
           <span className={`${styles.priceNum} text text_type_digits-default mr-2`}>

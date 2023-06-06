@@ -10,12 +10,17 @@
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  min-height: 200px;
 }
 
 .stuffing {
   max-height: 464px;
   overflow-y: scroll;
 }
+
+/* .stuffing:hover {
+  background: red;
+} */
 
 .ingridients-item {
   box-sizing: content-box;

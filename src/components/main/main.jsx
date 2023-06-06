@@ -6,6 +6,9 @@ import { sortArr } from '../../utils/utils';
 import PropTypes from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
 import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 
 const addToConstructor = (constructorIngridients, action) => {
   if (action.type === 'set') {
@@ -57,8 +60,11 @@ export default function Main() {
   // console.log(constructorIngridients);
   return (
     <main className={styles.main}>
+      <DndProvider backend={HTML5Backend}>
         <BurgerIngridients />
         <BurgerConstructor />
+      </DndProvider>
+        
     </main>
   )
 }
