@@ -1,31 +1,33 @@
 import React from 'react';
-import styles from './ingridient-details.module.css';
+import styles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
 
-export default function IngridientDetails({ingridient}) {
-  console.log(ingridient);
+export default function IngridientDetails() {
+  const ingredient = useSelector(state => state.ingredientDetails);
+  console.log(ingredient);
   return (
-    <div className={`${styles['ingridient-details']} mt-10 mr-10 mb-15 ml-10`}>
+    <div className={`${styles['ingredient-details']} mt-10 mr-10 mb-15 ml-10`}>
       <h3 className={`${styles.title} text text_type_main-large`}>Детали ингриидиента</h3>
-      <img src={ingridient.image_large} alt={ingridient.name} className={`${styles.img} text text_type_main-large`}/>
-      <h4 className='text text_type_main-medium mb-8'>{ingridient.name}</h4>
+      <img src={ingredient.image_large} alt={ingredient.name} className={`${styles.img} text text_type_main-large`}/>
+      <h4 className='text text_type_main-medium mb-8'>{ingredient.name}</h4>
       <ul className={`${styles.macronutrients}`}>
         <li className={`${styles.macro}`}>
           <p className='text text_type_main-default text_color_inactive'>Калории, ккал</p>
-          <p className='text text_type_digits-default text_color_inactive'>{ingridient.calories}</p>
+          <p className='text text_type_digits-default text_color_inactive'>{ingredient.calories}</p>
         </li>
         <li className={`${styles.macro}`}>
           <p className='text text_type_main-default text_color_inactive'>Белки, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{ingridient.proteins}</p>
+          <p className='text text_type_digits-default text_color_inactive'>{ingredient.proteins}</p>
         </li>
         <li className={`${styles.macro}`}>
           <p className='text text_type_main-default text_color_inactive'>Жиры, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{ingridient.fat}</p>
+          <p className='text text_type_digits-default text_color_inactive'>{ingredient.fat}</p>
         </li>
         <li className={`${styles.macro}`}>
           <p className='text text_type_main-default text_color_inactive'>Углеводы, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{ingridient.carbohydrates}</p>
+          <p className='text text_type_digits-default text_color_inactive'>{ingredient.carbohydrates}</p>
         </li>
       </ul>
     </div>

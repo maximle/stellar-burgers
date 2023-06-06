@@ -3,9 +3,6 @@ import styles from './burger-constructor.module.css';
 import { Button, DragIcon,ConstructorElement , CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-detailts/order-details';
-import PropTypes from 'prop-types';
-import { ingredientPropType } from '../../utils/prop-types'
-import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDrop } from 'react-dnd';
