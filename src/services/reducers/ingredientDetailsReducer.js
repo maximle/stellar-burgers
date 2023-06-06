@@ -9,7 +9,7 @@ export const ingredientDetailsReducer = (state = ingredientDetailsInitialState, 
     case OPEN_POPUP: {
       return {
         ...state,
-        ingredientDetails: action.ingredientDetails
+        ingredientDetails: action.payload
       }
     }
     case CLOSE_POPUP: {

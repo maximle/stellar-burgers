@@ -1,32 +1,33 @@
 import React from 'react';
 import styles from './card.module.css';
-import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
-import IngridientDetails from '../ingridient-details/ingridient-details';
+import IngridientDetails from '../ingredient-details/ingredient-details';
 import { ingredientPropType } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDrag } from 'react-dnd';
+import { OPEN_POPUP, CLOSE_POPUP } from '../../services/actions/ingredientDetails';
 
 export default function Card({ card }) {
-  const [popupOpened, setPopupOpened] = React.useState(false);
+  const ingredientDetails = useSelector(state => state.ingredientDetails.ingredientDetails);
   
-  const openPopup = (card) => {
-    setPopupOpened(true)
-  }
-  const closePopup = (e) => {
-    setPopupOpened(false)
-  }
-
-  const dispatch = useDispatch();
-  const constructorIngredients = useSelector(state => state.burgerConstructor);
-
-  const addToConstructor = () => {
+  const openPopup = () => {
+    console.log(card);
     dispatch({
-      type: ADD_INGREDIENT,
+      type: OPEN_POPUP,
       payload: card
     })
   }
+  const closePopup = (e) => {
+    dispatch({
+      type: CLOSE_POPUP,
+      payload: null
+    })
+  }
+  
+  const dispatch = useDispatch();
+  const constructorIngredients = useSelector(state => state.burgerConstructor);
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
@@ -50,7 +51,7 @@ export default function Card({ card }) {
           {card.name}
         </p>
       </div>
-      {popupOpened && 
+      {ingredientDetails && 
         <Modal closePopup={closePopup}>
           <IngridientDetails />
         </Modal>
