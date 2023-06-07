@@ -5,9 +5,9 @@ import { useDrop, useDrag } from 'react-dnd';
 import { DELETE_INGREDIENT, SORT_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDispatch } from 'react-redux';
 
-export default function ConstructorCard({item, index}) {
+export default function ConstructorCard({ item, index }) {
   const dispatch = useDispatch();
-  
+  console.log(item, item.index);
   const handleDeleteButton = (item, index) => {
     dispatch({
       type: DELETE_INGREDIENT,

@@ -74,7 +74,7 @@ export default function BurgerConstructor() {
                   //   handleClose={() => handleDeleteButton(item, i)}
                   //   />
                   // </li>
-                  <ConstructorCard key={item['_id']} item={item} index={i} />
+                  <ConstructorCard key={item['_id'] + i} item={item} index={i} />
               )
             })}
           </ul>
