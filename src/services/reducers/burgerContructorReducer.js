@@ -51,6 +51,19 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
         totalPrice: (state.totalPrice - action.payload.price)
       }
     }
+    case SORT_INGREDIENT:{
+      console.log('=========');
+      let stuffings = [...state.ingredients.stuffings];
+      stuffings.splice(action.dragIndex, 1);
+      stuffings.splice(action.hoverIndex, 0, action.element);
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          stuffings: stuffings
+        }
+      }
+    }
     default: {
       return state;
     }

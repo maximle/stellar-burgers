@@ -6,6 +6,7 @@ import OrderDetails from '../order-detailts/order-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDrop } from 'react-dnd';
+import ConstructorCard from '../constructor-card/constructor-card';
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -24,13 +25,13 @@ export default function BurgerConstructor() {
     setPopupOpened(false)
   }
 
-  const handleDeleteButton = (item, index) => {
-    dispatch({
-      type: DELETE_INGREDIENT,
-      index: index,
-      payload: item
-    });
-  }
+  // const handleDeleteButton = (item, index) => {
+  //   dispatch({
+  //     type: DELETE_INGREDIENT,
+  //     index: index,
+  //     payload: item
+  //   });
+  // }
 
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
@@ -45,6 +46,8 @@ export default function BurgerConstructor() {
       });
     },
   });
+
+  
   const border = isHover ? '1px solid lightgreen' : '1px solid transparent';
   return (
     <section className={`${styles.section}  pt-25`}>
@@ -59,18 +62,19 @@ export default function BurgerConstructor() {
             <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`} ref={dropRef} style={{border}}>
             {ingridients.stuffings.map((item, i) => {
               return (   
-                  <li key={item['_id']} className={`${styles['ingridients-item']}`}>
-                    <span className={`${styles['drag-icon']}`}>
-                      <DragIcon type="primary" />
-                    </span>
+                  // <li key={item['_id']} className={`${styles['ingridients-item']}`}>
+                  //   <span className={`${styles['drag-icon']}`}>
+                  //     <DragIcon type="primary" />
+                  //   </span>
                     
-                    <ConstructorElement 
-                    text={item.name} 
-                    price={item.price} 
-                    thumbnail={item.image}
-                    handleClose={() => handleDeleteButton(item, i)}
-                    />
-                  </li>
+                  //   <ConstructorElement 
+                  //   text={item.name} 
+                  //   price={item.price} 
+                  //   thumbnail={item.image}
+                  //   handleClose={() => handleDeleteButton(item, i)}
+                  //   />
+                  // </li>
+                  <ConstructorCard key={item['_id']} item={item} index={i} />
               )
             })}
           </ul>
