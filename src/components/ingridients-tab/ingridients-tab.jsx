@@ -13,16 +13,16 @@ export default function IngridientsTab({tab, ingridients}) {
   // console.log(section1InView, tab, entry1);
   const dispatch = useDispatch();
   const state = useSelector(state => state.burgerIngredients.tabs)
-  console.log(tab);
+  
   const ref = React.useRef();
   
   React.useEffect(() => {    
-    const tabPos = ref.current.getBoundingClientRect();
-    console.log(tabPos.y);
-    
+    const tabPos = ref.current.getBoundingClientRect().y;
+    //console.log(tabPos);
+    //console.log(ref.current)
     dispatch({
       type: SET_INGREDIENTS_TAB,
-      entry: tabPos.y,
+      ref: ref.current,
       tab: tab
     });
     

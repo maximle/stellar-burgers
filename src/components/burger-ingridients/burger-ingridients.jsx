@@ -25,7 +25,7 @@ export default function BurgerIngridients() {
   //   1: section2Ref,
   //   2: section3Ref
   // }
-
+  
   const rawIngredients = useSelector(state => state.burgerIngredients);
   const ingredients = sortArr(rawIngredients.ingredients);
   const dispatch = useDispatch();
@@ -37,9 +37,10 @@ export default function BurgerIngridients() {
   // console.log(rawIngredients);
   // console.log(ingredients);
   const updateCurrentTab = () => {
-    const sortedTabs = rawIngredients.tabs.sort((item) => {
-
-    })
+    console.log(Object.keys(rawIngredients.tabs));
+    const sortedTabs = null;
+    const rrr = rawIngredients.tabs['Булки'].getBoundingClientRect();
+    console.log(rrr);
   }
 
   return (

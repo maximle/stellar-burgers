@@ -10,7 +10,7 @@ const burgerIngredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
-  tabs: []
+  tabs: {}
 };
 
 export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
@@ -41,7 +41,10 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
       console.log(action.entry);
       console.log(state)
       return {...state,
-        tabs: [...state.tabs, {[action.tab]: action.entry}]
+        tabs: {
+          ...state.tabs,
+          [action.tab]: action.ref
+        } 
       }
     }
     default: {
