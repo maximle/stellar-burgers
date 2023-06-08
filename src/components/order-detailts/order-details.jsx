@@ -1,28 +1,20 @@
 import React from 'react';
 import styles from './order-details.module.css';
-import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { order } from '../../services/actions/orderDetails';
 export default function OrderDetails() {
-  // const [state, setState] = React.useState({
-  //   data: null,
-  //   isLoading: false,
-  //   hasError: false
-  // });
 
   React.useEffect(() => {
-    console.log('hi');
     dispatch(order()); 
   }, []);
 
   const {orderData, orderRequest, orderFailed } = useSelector(state => state.orderDetails);
-  //const orderData = useSelector(state => state.orderDetails.order);
   
   
   const dispatch = useDispatch();
   
   React.useEffect(() => {
-    dispatch(order()); 
+    dispatch(order());
   }, []);
   console.log(orderData);
   return (

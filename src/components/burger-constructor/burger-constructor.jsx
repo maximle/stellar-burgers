@@ -13,7 +13,9 @@ export default function BurgerConstructor() {
   const ingridients = useSelector(state => state.burgerConstructor.ingredients);
   // const stuffing =  ingridients.main.concat(ingridients.sauce);
   console.log(ingridients);
-  const totalPrice = useSelector(state => state.burgerConstructor.totalPrice);
+  const totalPrice = useSelector(state => (state.burgerConstructor.totalPrice.buns + state.burgerConstructor.totalPrice.stuffings));
+  const orderList = useSelector(state => state.burgerConstructor.orderList);
+  console.log(orderList);
   const [popupOpened, setPopupOpened] = React.useState(false);
 
   const openPopup = () => {

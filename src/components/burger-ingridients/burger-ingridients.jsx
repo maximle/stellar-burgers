@@ -4,43 +4,42 @@ import Tabs from '../tabs/tabs'
 import IngridientsTab from '../ingridients-tab/ingridients-tab'
 import tabsObj from '../../utils/constants';
 import { sortArr } from '../../utils/utils';
-import { BurgerConstructorContext } from '../../services/burgerConstructorContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/burgerIngredients';
 
-import { useInView } from 'react-intersection-observer';
 
 export default function BurgerIngridients() {
-  const [tabs, setTabs] = React.useState(tabsObj);
   const [currentTab, setCurrentTab] = React.useState(
     Object.keys(tabsObj)[0]
   );
-
-  // const [section1Ref, section1InView, entry1] = useInView({ threshold: 0.5 });
-  // const [section2Ref, section2InView, entry2] = useInView({ threshold: 0.5 });
-  // const [section3Ref, section3InView, entry3] = useInView({ threshold: 0.5 });
-  // console.log(section1InView, section2InView, section3InView);
-  // const tabRefs = {
-  //   0: section1Ref,
-  //   1: section2Ref,
-  //   2: section3Ref
-  // }
-  
   const rawIngredients = useSelector(state => state.burgerIngredients);
   const ingredients = sortArr(rawIngredients.ingredients);
   const dispatch = useDispatch();
+  
   React.useEffect(() => {
     dispatch(getIngredients());
     console.log(rawIngredients.tabs);
 
   }, []);
-  // console.log(rawIngredients);
-  // console.log(ingredients);
+
   const updateCurrentTab = () => {
-    console.log(Object.keys(rawIngredients.tabs));
-    const sortedTabs = null;
-    const rrr = rawIngredients.tabs['Булки'].getBoundingClientRect();
-    console.log(rrr);
+    //console.log(rawIngredients.tabs);
+    let arrToSort = [];
+    let arrToSort2 = [];
+    for (let key in rawIngredients.tabs) {
+      arrToSort.push([key, rawIngredients.tabs[key].intersectionRect.y]);
+    }
+    arrToSort.map((item) => {
+      if (item[1] > 0) {
+        arrToSort2.push(item);
+      }
+    })
+    arrToSort2.sort(function(a, b) {
+       return a[1] - b[1];
+    });
+    if (arrToSort2.length > 0) {
+      setCurrentTab(arrToSort2[0][0]);
+    }
   }
 
   return (
@@ -50,14 +49,11 @@ export default function BurgerIngridients() {
       <div className={`${styles.ingredients} custom-scroll`} onScroll={updateCurrentTab}>
         {Object.keys(tabsObj).map((key, i) => {
             return (
-              //<div key={i} ref={tabRefs[i]}>
-                <IngridientsTab
-                  key={i}
-                  tab={tabsObj[key]}
-                  ingridients={ingredients[key]}
-                />
-              //</div>
-              
+              <IngridientsTab
+                key={i}
+                tab={key}
+                ingridients={ingredients[key]}
+              />
             );
         })}
       </div>

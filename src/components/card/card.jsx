@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './card.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngridientDetails from '../ingredient-details/ingredient-details';
 import { ingredientPropType } from '../../utils/prop-types';
@@ -8,10 +8,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDrag } from 'react-dnd';
 import { OPEN_POPUP, CLOSE_POPUP } from '../../services/actions/ingredientDetails';
-
+import { RESET_CONSTRUCTOR } from '../../services/actions/burgerConstructor';
 export default function Card({ card }) {
   const ingredientDetails = useSelector(state => state.ingredientDetails.ingredientDetails);
-  
+  const orderList = useSelector(state => state.burgerConstructor.orderList);
   const openPopup = () => {
     console.log(card);
     dispatch({
@@ -19,11 +19,17 @@ export default function Card({ card }) {
       payload: card
     })
   }
-  const closePopup = (e) => {
+  const closePopup = () => {
     dispatch({
       type: CLOSE_POPUP,
       payload: null
     })
+  }
+
+  const resetConstructor = () => {
+    dispatch({
+      type: RESET_CONSTRUCTOR
+    });
   }
   
   const dispatch = useDispatch();
@@ -36,10 +42,29 @@ export default function Card({ card }) {
       opacity: monitor.isDragging() ? 0.5 : 1
     })
   });
-
+  const itemCount = () => {
+    return orderList['buns'].concat(orderList['stuffings']).reduce((acc, current) => {
+      //console.log(current in acc, current, acc)
+      if (current in acc) {
+        acc[current] = acc[current] + 1;
+      } else {
+        acc[current] = 1;
+      }
+      return acc;
+    }, {})
+  }
+  const ingredientsOrdered = itemCount();
+  console.log(ingredientsOrdered);
   return (
     <>
       <div className={`${styles.card}`} onClick={openPopup} ref={dragRef} style={{opacity}}>
+        {(card._id in ingredientsOrdered) ? (
+          <div className={`${styles.counter}`}>
+            <Counter count={ingredientsOrdered[card._id]} size="default" />
+          </div>
+        ) : 
+          ""
+        }
         <img src={card.image} alt={card.name} className={`${styles.image} ml-4 mr-4 mb-1`} />
         <div className={`${styles.price} mb-1`}>
           <span className={`${styles.priceNum} text text_type_digits-default mr-2`}>

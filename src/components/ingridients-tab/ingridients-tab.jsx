@@ -1,35 +1,29 @@
 import React from 'react';
 import styles from './ingridients-tab.module.css';
-import { sortArr } from '../../utils/utils';
-import Card from '../card/card'
+import Card from '../card/card';
 import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType, tabObjPropType } from '../../utils/prop-types';
 import { useInView } from 'react-intersection-observer';
 import { SET_INGREDIENTS_TAB } from '../../services/actions/burgerIngredients';
 import { useDispatch, useSelector } from 'react-redux';
+import tabsObj from '../../utils/constants';
 
 export default function IngridientsTab({tab, ingridients}) {
-  // const [section1Ref, section1InView, entry1] = useInView({ threshold: 0.5 });
-  // console.log(section1InView, tab, entry1);
   const dispatch = useDispatch();
   const state = useSelector(state => state.burgerIngredients.tabs)
+  const [section1Ref, section1InView, entry1] = useInView({ threshold: 0 });
   
-  const ref = React.useRef();
-  
-  React.useEffect(() => {    
-    const tabPos = ref.current.getBoundingClientRect().y;
-    //console.log(tabPos);
-    //console.log(ref.current)
+  React.useEffect(() => {
     dispatch({
       type: SET_INGREDIENTS_TAB,
-      ref: ref.current,
-      tab: tab
+      tab: tab,
+      entry: entry1,
+      isInView: section1InView
     });
-    
-  }, []);
+  }, [entry1]);
   return (
     <>
-      <h2 className={`${styles.subtitle} text text_type_main-medium`} ref={ref}>{tab}</h2>
+      <h2 className={`${styles.subtitle} text text_type_main-medium`} ref={section1Ref}>{tabsObj[tab]}</h2>
       <ul className={`${styles.cards} pt-6 pl-4 pb-10`}>
         {ingridients && ingridients.map((card, i) => {
           return (
@@ -40,8 +34,6 @@ export default function IngridientsTab({tab, ingridients}) {
         })}
       </ul>
     </>
-    
-
   )
 }
 

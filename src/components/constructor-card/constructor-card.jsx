@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 export default function ConstructorCard({ item, index }) {
   const dispatch = useDispatch();
-  console.log(item, item.index);
+  //console.log(item, item.index);
   const handleDeleteButton = (item, index) => {
     dispatch({
       type: DELETE_INGREDIENT,

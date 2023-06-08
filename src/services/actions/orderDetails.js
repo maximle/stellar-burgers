@@ -1,5 +1,6 @@
 import { dataUrl } from '../../utils/constants';
 import { request } from '../../utils/utils';
+import { RESET_CONSTRUCTOR } from './burgerConstructor';
 
 export const ORDER = "ORDER";
 export const ORDER_SUCCESS = "ORDER_SUCCESS";
@@ -34,10 +35,14 @@ export function order() {
           orderList: orderList,
           number: res.order.number
         });
+        dispatch({
+          type: RESET_CONSTRUCTOR
+        });
       })
       .catch((err) => {
         dispatch({ type: ORDER_FAILED });
         console.log(err);
-      });
+      })
+      
   };
 }

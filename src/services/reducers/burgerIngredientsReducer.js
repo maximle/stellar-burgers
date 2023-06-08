@@ -38,13 +38,13 @@ export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, 
       };
     }
     case SET_INGREDIENTS_TAB: {
-      console.log(action.entry);
-      console.log(state)
+      console.log(action.tab, action.entry);
+      //console.log(state)
+      
       return {...state,
         tabs: {
-          ...state.tabs,
-          [action.tab]: action.ref
-        } 
+          ...state.tabs, [action.tab]: action.entry
+        }
       }
     }
     default: {
