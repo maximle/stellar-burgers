@@ -42,7 +42,7 @@ export default function Card({ card }) {
     }, {})
   }
   const ingredientsOrdered = itemCount();
-  console.log(ingredientsOrdered);
+  //console.log(ingredientsOrdered);
   return (
     <>
       <div className={`${styles.card}`} onClick={openPopup} ref={dragRef} style={{opacity}}>
