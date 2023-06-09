@@ -7,31 +7,19 @@ import { ingredientPropType } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
 import { useDrag } from 'react-dnd';
-import { OPEN_POPUP, CLOSE_POPUP } from '../../services/actions/ingredientDetails';
+import { OPEN_POPUP, CLOSE_POPUP, openModal, closeModal } from '../../services/actions/ingredientDetails';
 import { RESET_CONSTRUCTOR } from '../../services/actions/burgerConstructor';
 export default function Card({ card }) {
   const ingredientDetails = useSelector(state => state.ingredientDetails.ingredientDetails);
   const orderList = useSelector(state => state.burgerConstructor.orderList);
   const openPopup = () => {
     console.log(card);
-    dispatch({
-      type: OPEN_POPUP,
-      payload: card
-    })
+    dispatch(openModal(card));
   }
   const closePopup = () => {
-    dispatch({
-      type: CLOSE_POPUP,
-      payload: null
-    })
+    dispatch(closeModal());
   }
 
-  const resetConstructor = () => {
-    dispatch({
-      type: RESET_CONSTRUCTOR
-    });
-  }
-  
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(state => state.burgerConstructor);
 

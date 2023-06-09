@@ -2,18 +2,14 @@ import React, {useRef} from 'react';
 import styles from './constructor-card.module.css';
 import { Button, DragIcon,ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from 'react-dnd';
-import { DELETE_INGREDIENT, SORT_INGREDIENT } from '../../services/actions/burgerConstructor';
+import { DELETE_INGREDIENT, SORT_INGREDIENT, deleteIngredient } from '../../services/actions/burgerConstructor';
 import { useDispatch } from 'react-redux';
 
 export default function ConstructorCard({ item, index }) {
   const dispatch = useDispatch();
   //console.log(item, item.index);
   const handleDeleteButton = (item, index) => {
-    dispatch({
-      type: DELETE_INGREDIENT,
-      index: index,
-      payload: item
-    });
+    dispatch(deleteIngredient(item, index));
   }
 
   const ref = useRef(null);
@@ -79,7 +75,8 @@ export default function ConstructorCard({ item, index }) {
   })
   const opacity = isDragging ? 0 : 1
   drag(drop(ref));
-
+  
+  console.log(item.uniqueId);
   return ( 
     <li 
       key={item['_id']} 

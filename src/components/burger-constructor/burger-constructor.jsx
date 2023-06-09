@@ -4,9 +4,11 @@ import { Button, DragIcon,ConstructorElement , CurrencyIcon } from '@ya.praktiku
 import Modal from '../modal/modal';
 import OrderDetails from '../order-detailts/order-details';
 import { useSelector, useDispatch } from 'react-redux';
-import { DELETE_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/burgerConstructor';
+import { DELETE_INGREDIENT, ADD_INGREDIENT, addIngredient } from '../../services/actions/burgerConstructor';
 import { useDrop } from 'react-dnd';
 import ConstructorCard from '../constructor-card/constructor-card';
+import { useModal } from '../hooks/useModal';
+import { order } from '../../services/actions/orderDetails';
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -16,24 +18,8 @@ export default function BurgerConstructor() {
   const totalPrice = useSelector(state => (state.burgerConstructor.totalPrice.buns + state.burgerConstructor.totalPrice.stuffings));
   const orderList = useSelector(state => state.burgerConstructor.orderList);
   console.log(orderList);
-  const [popupOpened, setPopupOpened] = React.useState(false);
-
-  const openPopup = () => {
-    if (ingridients.buns.length > 0 || ingridients.stuffings.length) {
-      setPopupOpened(true)
-    }
-  }
-  const closePopup = () => {
-    setPopupOpened(false)
-  }
-
-  // const handleDeleteButton = (item, index) => {
-  //   dispatch({
-  //     type: DELETE_INGREDIENT,
-  //     index: index,
-  //     payload: item
-  //   });
-  // }
+  const { isModalOpen, openModal, closeModal } = useModal();
+ 
 
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
@@ -42,10 +28,7 @@ export default function BurgerConstructor() {
     }),
     drop(card) {
       console.log(card);
-      dispatch({
-        type: ADD_INGREDIENT,
-        payload: card
-      });
+      dispatch(addIngredient(card));
     },
   });
 
@@ -63,20 +46,8 @@ export default function BurgerConstructor() {
             }
             <ul className={`${styles['ingridients-list']} ${styles.stuffing} custom-scroll`} ref={dropRef} style={{border}}>
             {ingridients.stuffings.map((item, i) => {
-              return (   
-                  // <li key={item['_id']} className={`${styles['ingridients-item']}`}>
-                  //   <span className={`${styles['drag-icon']}`}>
-                  //     <DragIcon type="primary" />
-                  //   </span>
-                    
-                  //   <ConstructorElement 
-                  //   text={item.name} 
-                  //   price={item.price} 
-                  //   thumbnail={item.image}
-                  //   handleClose={() => handleDeleteButton(item, i)}
-                  //   />
-                  // </li>
-                  <ConstructorCard key={item['_id'] + i} item={item} index={i} />
+              return (
+                  <ConstructorCard key={item.uniqueId} item={item} index={i} />
               )
             })}
           </ul>
@@ -100,10 +71,17 @@ export default function BurgerConstructor() {
             </span>
           </span>
           <div className="ml-10" >
-            <Button type="primary" size="large" htmlType="button" onClick={openPopup}>Оформить заказ</Button>
+            <Button type="primary" size="large" htmlType="button" 
+              onClick={() => {
+                openModal(); 
+                dispatch(order()); 
+              }}
+            >
+              Оформить заказ
+            </Button>
           </div>
-          {popupOpened && 
-            <Modal closePopup={closePopup}>
+          {isModalOpen && 
+            <Modal closePopup={closeModal}>
               <OrderDetails />
             </Modal>
           }
@@ -112,8 +90,3 @@ export default function BurgerConstructor() {
     </section>
   )
 }
-
-
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
-// };

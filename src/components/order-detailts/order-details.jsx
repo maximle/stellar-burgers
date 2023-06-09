@@ -1,22 +1,12 @@
 import React from 'react';
 import styles from './order-details.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { order } from '../../services/actions/orderDetails';
+
 export default function OrderDetails() {
-
-  React.useEffect(() => {
-    dispatch(order()); 
-  }, []);
-
   const {orderData, orderRequest, orderFailed } = useSelector(state => state.orderDetails);
   
-  
-  const dispatch = useDispatch();
-  
-  React.useEffect(() => {
-    dispatch(order());
-  }, []);
   console.log(orderData);
+  
   return (
     <div className={`${styles['order-details']} mt-30 mr-25 mb-30 ml-25`}>
       <h3 className={`${styles.title} text text_type_digits-large mb-8`}>
